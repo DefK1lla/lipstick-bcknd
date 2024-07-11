@@ -3,6 +3,9 @@ import fs from 'fs'
 import express  from 'express';
 import cors from 'cors';
 import path from 'path';
+import { tmpdir } from 'os';
+
+tmpdir();
 
 env.allowLocalModels = false;
 

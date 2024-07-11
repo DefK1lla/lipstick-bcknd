@@ -57,7 +57,7 @@ app.post('/api', (req, res) => {
   const formatedBase64 = imgBase64.split(';base64,').pop();
 
   fs.writeFile(path.join(process.cwd(), 'image.png'), formatedBase64, { encoding: 'base64' }, function(err) {
-    if (err) return res.status(500).send('Unknown Error').end();
+    if (err) return res.status(500).send(JSON.stringify(e)).end();
     parseFace('./image.png')
       .then(formatData)
       .then(data => res.send(data));

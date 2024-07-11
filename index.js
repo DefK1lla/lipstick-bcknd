@@ -58,12 +58,12 @@ app.post('/api', (req, res) => {
   const imgBase64 = req.body.imgBase64;
   const formatedBase64 = imgBase64.split(';base64,').pop();
 
-  fs.writeFile(path.join(process.cwd(), 'image.png'), formatedBase64, { encoding: 'base64' }, function(err) {
+  fs.writeFile(path.join(process.cwd(), '/tmp/image.png'), formatedBase64, { encoding: 'base64' }, function(err) {
     if (err) { 
       console.error(err);
       return res.status(500).send('Unknown Error').end();
     }
-    parseFace('./image.png')
+    parseFace('./tmp/image.png')
       .then(formatData)
       .then(data => res.send(data));
   });

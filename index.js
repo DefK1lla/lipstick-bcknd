@@ -46,7 +46,7 @@ function formatData(data) {
 const app = express();
 
 app.use(cors({
-  origin: true
+  origin: '*'
 }));
 app.use(express.json({limit: '50mb'}));
 
@@ -59,7 +59,10 @@ app.post('/api', (req, res) => {
   const formatedBase64 = imgBase64.split(';base64,').pop();
 
   fs.writeFile(path.join(process.cwd(), 'image.png'), formatedBase64, { encoding: 'base64' }, function(err) {
-    if (err) return res.status(500).send(JSON.stringify(e)).end();
+    if (err) { 
+      console.error(err);
+      return res.status(500).send('Unknown Error').end();
+    }
     parseFace('./image.png')
       .then(formatData)
       .then(data => res.send(data));
